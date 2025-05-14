@@ -31,7 +31,35 @@ jobs:
       - name: Instalamos las dependecias y realizamos el buil
         run:  |
           npm install
-          npm run buil --if-present
+          npm run buil --if-present  
+          
+     # - name: Corremos el linter
+     #  run: npm run lint
+
+      - name: Corremos las pruebas unitarias y de integración con su covertura
+        run: npm run test:cov
+
+      - name: Corremos las pruebas end-to-end
+        run: npm run test:e2e
+        
+      - name: Actualizamosel artefacto con el reporte de coovertura de los tests
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: coverage/
+          retention-days: 7
+          if-no-files-found: error
+          
+        
+
+
+
+
+
+
+
+        
+      
 
 
 
