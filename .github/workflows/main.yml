@@ -1,0 +1,41 @@
+name: Mi primer Gaby
+
+on:
+ #Ejecutar cada que se realice un push
+  push:
+     branches:
+      - main
+      - realse/*
+  pull_request:
+        types: [opened, synchronize, reopened, review_requested]
+        branches:
+        - main
+  schedule:
+     - cron: "0 2 * *  1-5"
+     
+  workflow_dispatch:
+
+jobs:
+  correr-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Realizamos un checkout a la rama
+        uses: actions/checkout@v2
+
+      - name: Usamos Node.js 20x
+        uses: actions/setup-mode@v4
+        with:
+           node-version: '20.x'
+           cache: 'npm'
+      - name: Instalamos las dependecias y realizamos el buil
+        run:  |
+          npm install
+          npm run buil --if-present
+
+
+
+
+
+
+          
